@@ -62,6 +62,13 @@ function GameBoard(props) {
             props.setFill(0);
         } else {
             props.setFill(fill);
+                            if (fill >= 100) {
+                    alert("you win");
+                } else if (fill <= 0) {
+                    alert("you loss");
+                } else {
+                    return;
+                }
         }
     }
     return (
