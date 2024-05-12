@@ -52,23 +52,19 @@ function GameBoard(props) {
         setNewColors(newColor);
         let fill;
         if (data) {
-            fill = props.fill + 10;
+            fill = props.fill + 25;
         } else {
-            fill = props.fill - 5;
+            fill = props.fill - 25;
         }
-        if (props.fill >= 100) {
+        props.setFill(fill);
+        if (fill >= 100) {
+            alert("you win");
             props.setFill(100);
-        } else if (props.fill <= 0) {
+        } else if (fill <= 0) {
+            alert("you loss");
             props.setFill(0);
         } else {
-            props.setFill(fill);
-                            if (fill >= 100) {
-                    alert("you win");
-                } else if (fill <= 0) {
-                    alert("you loss");
-                } else {
-                    return;
-                }
+            return;
         }
     }
     return (
