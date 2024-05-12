@@ -4,7 +4,7 @@ function Header(props) {
                     <div className="text-4xl">
                         <span className="text-orange-300 underline">tap</span>
                         <span className="text-indigo-300 underline">tap</span>
-                        <span className="text-green-300 underline">Go</span>
+                        <span className="text-green-300 underline">Go?</span>
                     </div>
                     <div>Best: Level 1</div>
                 </div>
