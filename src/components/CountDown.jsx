@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const CountdownTimer = props => {
     let time = props.time;
+
     const [countdown, setCountdown] = useState(time);
 
     useEffect(() => {
@@ -11,13 +12,18 @@ const CountdownTimer = props => {
                     return prevCountdown - 1;
                 } else {
                     clearInterval(timer);
-                    props.setIsTimeout(true);
                     return 0;
                 }
             });
         }, 1000);
         return () => clearInterval(timer);
     }, []);
+
+    useEffect(() => {
+        if (countdown === 0) {
+            props.setIsTimeout(true);
+        }
+    }, [countdown, props.setIsTimeout]);
 
     const minutes = Math.floor(countdown / 60);
     const seconds = countdown % 60;

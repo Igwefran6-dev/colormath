@@ -18,19 +18,54 @@ function App() {
         return arr;
     }
 
+    if (localStorage.getItem("level") === null) {
+        localStorage.setItem("level", "1");
+    }
+    let [currentLevel, setCurrentLevel] = useState(
+        localStorage.getItem("level")
+    );
+    function nextLevel() {
+        let newNextLevel = JSON.parse(localStorage.getItem("level")) + 1;
+        localStorage.setItem("level", JSON.stringify(newNextLevel));
+        setCurrentLevel(localStorage.getItem("level"));
+        setIsFilled(false);
+        setIsTimeout(false);
+        setIsFillEmpty(false);
+        setFillWidth(25);
+    }
+    function previousLevel() {
+        let newPreviousLevel = JSON.parse(localStorage.getItem("level")) - 1;
+        localStorage.setItem("level", JSON.stringify(newPreviousLevel));
+        setCurrentLevel(localStorage.getItem("level"));
+        setIsFilled(false);
+        setIsTimeout(false);
+        setIsFillEmpty(false);
+        setFillWidth(25);
+    }
+    function restart() {
+        setCurrentLevel(previousLevel => previousLevel);
+        setIsFilled(false);
+        setIsTimeout(false);
+        setIsFillEmpty(false);
+        setFillWidth(25);
+        setTime(75);
+    }
+
+    let level = Data["level" + currentLevel];
+
     function randNum(range) {
         return Math.floor(Math.random() * range);
     }
     function calc() {
-        let rand1 = randNum(14);
-        let rand2 = randNum(12);
+        let rand1 = randNum(level.range);
+        let rand2 = randNum(level.range);
         let total = rand1 + rand2;
         return `${rand1} + ${rand2} = ${total}`;
     }
 
     function fakeCalc() {
-        let rand1 = randNum(10);
-        let rand2 = randNum(10);
+        let rand1 = randNum(level.range);
+        let rand2 = randNum(level.range);
         let rand3 = randNum(6);
         let total = rand1 + rand3 + rand2 + 1;
         return `${rand1} + ${rand2} = ${total}`;
@@ -73,17 +108,22 @@ function App() {
             setIsFilled(true);
         } else if (fillWidth <= 0) {
             setFillWidth(0);
-            setIsNotFilled(false);
+            setIsFillEmpty(true);
         }
     }, [fillWidth]);
 
     const [isTimeout, setIsTimeout] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
-    const [isNotFilled, setIsNotFilled] = useState(true);
+    const [isFillEmpty, setIsFillEmpty] = useState(false);
+    const [time, setTime] = useState(level.time);
 
     return (
         <div className="h-[100dvh] flex flex-col bg-neutral-50">
-            <Header setIsTimeout={setIsTimeout} time={15}/>
+            <Header
+                setIsTimeout={setIsTimeout}
+                time={time}
+                level={localStorage.getItem("level")}
+            />
             <Fill fill={fillWidth} />
             <GameBoard
                 newColors={newColors}
@@ -92,8 +132,19 @@ function App() {
             />
             <ColorPalateView />
 
-            <GameOver isTimeout={isTimeout} isNotFilled={isNotFilled} />
-            <Win isFilled={isFilled} />
+            <GameOver
+                isTimeout={isTimeout}
+                isFillEmpty={isFillEmpty}
+                isFilled={isFilled}
+                previousLevel={previousLevel}
+                restart={restart}
+            />
+            <Win
+                nextLevel={nextLevel}
+                isFilled={isFilled}
+                previousLevel={previousLevel}
+                restart={restart}
+            />
 
             <PowerUps />
             <Footer />

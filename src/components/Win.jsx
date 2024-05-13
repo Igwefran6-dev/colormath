@@ -16,9 +16,19 @@ function Win(props) {
                 </h3>
                 <p>Congratulations</p>
                 <div className="flex gap-2 justify-center">
-                    <Button path={mdiSkipPrevious} size="42" color="#525252" />
-                    <Button path={mdiRestart} size="42" color="#525252" />
-                    <Button path={mdiSkipNext} size="42" color="#525252" />
+                    <Button
+                        path={mdiSkipPrevious}
+                        size="42"
+                        color="#525252"
+                        handleClick={props.previousLevel}
+                    />
+                    <Button path={mdiRestart} size="42" color="#525252" handleClick={props.restart} />
+                    <Button
+                        path={mdiSkipNext}
+                        size="42"
+                        color="#525252"
+                        handleClick={props.nextLevel}
+                    />
                 </div>
             </div>
         </div>
