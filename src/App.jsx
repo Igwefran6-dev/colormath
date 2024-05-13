@@ -67,24 +67,23 @@ function App() {
             setFillWidth(previousFillWith => previousFillWith - 25);
         }
     }
+    useEffect(() => {
+        if (fillWidth >= 100) {
+            setFillWidth(100);
+            setIsFilled(true);
+        } else if (fillWidth <= 0) {
+            setFillWidth(0);
+            setIsNotFilled(false);
+        }
+    }, [fillWidth]);
 
-    
-        useEffect(() => {
-            if (fillWidth >= 100) {
-                alert("you win");
-                setFillWidth(100);
-            } else if (fillWidth <= 0) {
-                alert("you loss");
-                setFillWidth(0);
-            }
-        }, [fillWidth]);
-    
-
-    
+    const [isTimeout, setIsTimeout] = useState(false);
+    const [isFilled, setIsFilled] = useState(false);
+    const [isNotFilled, setIsNotFilled] = useState(true);
 
     return (
-        <div className="h-[100vh] flex flex-col bg-neutral-50">
-            <Header />
+        <div className="h-[100dvh] flex flex-col bg-neutral-50">
+            <Header setIsTimeout={setIsTimeout} time={15}/>
             <Fill fill={fillWidth} />
             <GameBoard
                 newColors={newColors}
@@ -93,8 +92,8 @@ function App() {
             />
             <ColorPalateView />
 
-            <GameOver />
-            <Win />
+            <GameOver isTimeout={isTimeout} isNotFilled={isNotFilled} />
+            <Win isFilled={isFilled} />
 
             <PowerUps />
             <Footer />

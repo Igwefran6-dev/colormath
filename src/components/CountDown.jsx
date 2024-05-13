@@ -11,6 +11,7 @@ const CountdownTimer = props => {
                     return prevCountdown - 1;
                 } else {
                     clearInterval(timer);
+                    props.setIsTimeout(true);
                     return 0;
                 }
             });
@@ -24,9 +25,9 @@ const CountdownTimer = props => {
     const formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
 
     return (
-        <>
-            {formattedMinutes}:{formattedSeconds}
-        </>
+        <div className={countdown < 10 ? "text-red-500" : "text-white"}>
+            🕓 {formattedMinutes}:{formattedSeconds}
+        </div>
     );
 };
 

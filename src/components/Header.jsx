@@ -13,8 +13,11 @@ function Header(props) {
             </div>
             <div className="text-2xl font-bold flex flex-col text-right text-white justify-between">
                 <div className=""></div>
-                <div className="">
-                    🕓 <CountDown time={60} />
+                <div>
+                    <CountDown
+                        time={props.time}
+                        setIsTimeout={props.setIsTimeout}
+                    />
                 </div>
             </div>
         </div>
