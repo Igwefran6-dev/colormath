@@ -1,3 +1,5 @@
+import CountDown from "./CountDown";
+
 function Header(props) {
     return (
         <div className="bg-zinc-700 min-h-[15vh] flex justify-between p-3">
@@ -11,7 +13,9 @@ function Header(props) {
             </div>
             <div className="text-2xl font-bold flex flex-col text-right text-white justify-between">
                 <div className=""></div>
-                <div className="">🕓 00:00</div>
+                <div className="">
+                    🕓 <CountDown time={60} />
+                </div>
             </div>
         </div>
     );
