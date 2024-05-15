@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Fill from "./components/Fill";
 import GameBoard from "./components/GameBoard";
 import ColorPalateView from "./components/ColorPalateView";
-import PowerUps from "./components/PowerUps";
+import Options from "./components/Options";
 import Footer from "./components/Footer";
 import Data from "./components/Data";
 import Win from "./components/Win";
@@ -35,7 +35,7 @@ function App() {
     }
 
     useEffect(() => {
-        setCountdown(level.time); // Reset countdown when level changes
+        setCountdown(level.time);
         setIsFilled(false);
         setIsTimeout(false);
         setIsFillEmpty(false);
@@ -49,6 +49,8 @@ function App() {
             setIsFillEmpty(true);
         }
     }, [fillWidth]);
+    // console.log("xx: " + isFillEmpty);
+    //     console.log("yy: " + isFilled);
 
     function shuffleArray(arr) {
         const shuffledArray = [...arr];
@@ -89,12 +91,15 @@ function App() {
     const [newCalcsArr, setNewCalcArr] = useState(() => shuffleArray(calcsArr));
     const [newColors, setNewColors] = useState(() => shuffleArray(colors));
 
-    function checkCalc(data) {
+    function reset() {
         const shuffledColor = shuffleArray(colors);
         setNewColors(shuffledColor);
         const shuffleCalArr = shuffleArray(calcsArr);
         setNewCalcArr(shuffleCalArr);
+    }
 
+    function checkCalc(data) {
+        reset();
         if (data) {
             setFillWidth(prevFillWidth => prevFillWidth + 75);
         } else {
@@ -111,6 +116,7 @@ function App() {
         setIsTimeout(false);
         setIsFillEmpty(false);
         setFillWidth(25);
+        reset();
     }
 
     function previousLevel() {
@@ -122,6 +128,7 @@ function App() {
         setIsTimeout(false);
         setIsFillEmpty(false);
         setFillWidth(25);
+        reset();
     }
 
     function restart() {
@@ -131,6 +138,7 @@ function App() {
         setIsFillEmpty(false);
         setFillWidth(25);
         setCountdown(level.time);
+        reset();
     }
 
     return (
@@ -140,6 +148,8 @@ function App() {
                 level={localStorage.getItem("level")}
                 countdown={countdown}
                 setCountdown={setCountdown}
+                isFillEmpty={isFillEmpty}
+                isFilled={isFilled}
             />
             <Fill fill={fillWidth} />
             <GameBoard
@@ -163,7 +173,7 @@ function App() {
                 restart={restart}
             />
 
-            <PowerUps />
+            <Options />
             <Footer />
         </div>
     );

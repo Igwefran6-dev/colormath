@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
 
 const CountdownTimer = props => {
-    // const [countdown, setCountdown] = useState(60);
     const countdown = props.countdown;
-   const  setCountdown = props.setCountdown;
+    const setCountdown = props.setCountdown;
+    const isFilled = props.isFilled;
+    const isFillEmpty = props.isFillEmpty;
+
     useEffect(() => {
         const timer = setInterval(() => {
-            setCountdown(prevCountdown => {
-                if (prevCountdown > 0) {
-                    return prevCountdown - 1;
-                } else {
-                    clearInterval(timer);
-                    return 0;
-                }
-            });
+            if (!isFilled && !isFillEmpty) {
+                setCountdown(prevCountdown => {
+                    if (prevCountdown > 0) {
+                        return prevCountdown - 1;
+                    } else {
+                        clearInterval(timer);
+                        return 0;
+                    }
+                });
+            } else {
+                clearInterval(timer);
+            }
         }, 1000);
         return () => clearInterval(timer);
-    }, []);
+    }, [isFilled, isFillEmpty, setCountdown]);
 
     useEffect(() => {
         if (countdown === 0) {

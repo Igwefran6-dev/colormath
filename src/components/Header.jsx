@@ -15,8 +15,10 @@ function Header(props) {
                 <div>
                     <CountDown
                         countdown={props.countdown}
-                setCountdown={props.setCountdown}
+                        setCountdown={props.setCountdown}
                         setIsTimeout={props.setIsTimeout}
+                        isFillEmpty={props.isFillEmpty}
+                        isFilled={props.isFilled}
                     />
                 </div>
             </div>
