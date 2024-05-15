@@ -5,10 +5,11 @@ const CountdownTimer = props => {
     const setCountdown = props.setCountdown;
     const isFilled = props.isFilled;
     const isFillEmpty = props.isFillEmpty;
+    const isDialogOpened = props.isDialogOpened;
 
     useEffect(() => {
         const timer = setInterval(() => {
-            if (!isFilled && !isFillEmpty) {
+            if (!isFilled && !isFillEmpty && !isDialogOpened) {
                 setCountdown(prevCountdown => {
                     if (prevCountdown > 0) {
                         return prevCountdown - 1;
@@ -22,7 +23,7 @@ const CountdownTimer = props => {
             }
         }, 1000);
         return () => clearInterval(timer);
-    }, [isFilled, isFillEmpty, setCountdown]);
+    }, [isFilled, isFillEmpty, setCountdown, isDialogOpened]);
 
     useEffect(() => {
         if (countdown === 0) {

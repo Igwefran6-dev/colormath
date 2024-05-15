@@ -10,7 +10,7 @@ function Win(props) {
                 (isFilled ? "block" : "")
             }
         >
-            <div className="bg-white rounded border-2 border-neutral-200 fixed fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-auto z-20 p-3 text-center">
+            <div className="bg-white rounded border-2 border-neutral-200 fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-auto z-20 p-3 text-center">
                 <h3 className="text-2xl font-bold  text-neutral-600">
                     You Win
                 </h3>

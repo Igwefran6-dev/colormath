@@ -19,6 +19,7 @@ function Header(props) {
                         setIsTimeout={props.setIsTimeout}
                         isFillEmpty={props.isFillEmpty}
                         isFilled={props.isFilled}
+                        isDialogOpened={props.isDialogOpened}
                     />
                 </div>
             </div>

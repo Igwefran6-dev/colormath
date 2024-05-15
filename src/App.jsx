@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Data from "./components/Data";
 import Win from "./components/Win";
 import GameOver from "./components/GameOver";
+import HowToPlay from "./components/HowToPlay.jsx";
 
 function App() {
     const [currentLevel, setCurrentLevel] = useState(
@@ -20,6 +21,7 @@ function App() {
     const [isFilled, setIsFilled] = useState(false);
     const [isFillEmpty, setIsFillEmpty] = useState(false);
     const [countdown, setCountdown] = useState(level.time);
+    const [isDialogOpened, setIsDialogOpened] = useState(false);
     const colors = [
         "red",
         "orange",
@@ -45,6 +47,7 @@ function App() {
     useEffect(() => {
         if (fillWidth >= 100) {
             setIsFilled(true);
+            setFillWidth(100);
         } else if (fillWidth <= 0) {
             setIsFillEmpty(true);
         }
@@ -101,9 +104,9 @@ function App() {
     function checkCalc(data) {
         reset();
         if (data) {
-            setFillWidth(prevFillWidth => prevFillWidth + 75);
+            setFillWidth(prevFillWidth => prevFillWidth + 15);
         } else {
-            setFillWidth(prevFillWidth => prevFillWidth - 25);
+            setFillWidth(prevFillWidth => prevFillWidth - 10);
         }
     }
 
@@ -150,6 +153,7 @@ function App() {
                 setCountdown={setCountdown}
                 isFillEmpty={isFillEmpty}
                 isFilled={isFilled}
+                isDialogOpened={isDialogOpened}
             />
             <Fill fill={fillWidth} />
             <GameBoard
@@ -172,8 +176,11 @@ function App() {
                 previousLevel={previousLevel}
                 restart={restart}
             />
-
-            <Options />
+            <HowToPlay
+                isDialogOpened={isDialogOpened}
+                setIsDialogOpened={setIsDialogOpened}
+            />
+            <Options setIsDialogOpened={setIsDialogOpened} restart={restart}/>
             <Footer />
         </div>
     );
