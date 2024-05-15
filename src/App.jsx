@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Fill from "./components/Fill";
 import GameBoard from "./components/GameBoard";
@@ -20,7 +20,19 @@ function App() {
     const [isFilled, setIsFilled] = useState(false);
     const [isFillEmpty, setIsFillEmpty] = useState(false);
     const [countdown, setCountdown] = useState(level.time);
-    const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+    const colors = [
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "indigo",
+        "violet"
+    ];
+
+    function setCountdownFunc() {
+        // body...
+    }
 
     useEffect(() => {
         setCountdown(level.time); // Reset countdown when level changes
@@ -42,13 +54,16 @@ function App() {
         const shuffledArray = [...arr];
         for (let i = shuffledArray.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+            [shuffledArray[i], shuffledArray[j]] = [
+                shuffledArray[j],
+                shuffledArray[i]
+            ];
         }
         return shuffledArray;
     }
 
     function generateCalc() {
-        const randNum = (range) => Math.floor(Math.random() * range);
+        const randNum = range => Math.floor(Math.random() * range);
         const rand1 = randNum(level.range);
         const rand2 = randNum(level.range);
         const total = rand1 + rand2;
@@ -56,7 +71,7 @@ function App() {
     }
 
     function generateFakeCalc() {
-        const randNum = (range) => Math.floor(Math.random() * range);
+        const randNum = range => Math.floor(Math.random() * range);
         const rand1 = randNum(level.range);
         const rand2 = randNum(level.range);
         const rand3 = randNum(6);
@@ -71,12 +86,14 @@ function App() {
         { ques: generateFakeCalc(), correct: false }
     ];
 
-    const newCalcsArr = shuffleArray(calcsArr);
+    const [newCalcsArr, setNewCalcArr] = useState(() => shuffleArray(calcsArr));
     const [newColors, setNewColors] = useState(() => shuffleArray(colors));
 
     function checkCalc(data) {
-        const newColor = shuffleArray(colors);
-        setNewColors(newColor);
+        const shuffledColor = shuffleArray(colors);
+        setNewColors(shuffledColor);
+        const shuffleCalArr = shuffleArray(calcsArr);
+        setNewCalcArr(shuffleCalArr);
 
         if (data) {
             setFillWidth(prevFillWidth => prevFillWidth + 75);

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const CountdownTimer = props => {
-    const [countdown, setCountdown] = useState(60);
-    
+    // const [countdown, setCountdown] = useState(60);
+    const countdown = props.countdown;
+   const  setCountdown = props.setCountdown;
     useEffect(() => {
         const timer = setInterval(() => {
             setCountdown(prevCountdown => {
