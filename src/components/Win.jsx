@@ -21,8 +21,14 @@ function Win(props) {
                         size="42"
                         color="#525252"
                         handleClick={props.previousLevel}
+                        level={props.currentLevel}
                     />
-                    <Button path={mdiRestart} size="42" color="#525252" handleClick={props.restart} />
+                    <Button
+                        path={mdiRestart}
+                        size="42"
+                        color="#525252"
+                        handleClick={props.restart}
+                    />
                     <Button
                         path={mdiSkipNext}
                         size="42"

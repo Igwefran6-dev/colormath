@@ -20,7 +20,13 @@ function GameOver(props) {
                 </h3>
                 <p>Try Again</p>
                 <div className="flex gap-2 justify-center">
-                    <Button path={mdiSkipPrevious} size="42" color="#525252" handleClick={props.previousLevel}/>
+                    <Button
+                        path={mdiSkipPrevious}
+                        size="42"
+                        color="#525252"
+                        handleClick={props.previousLevel}
+                        level={props.currentLevel}
+                    />
                     <Button
                         path={mdiRestart}
                         size="42"

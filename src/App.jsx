@@ -11,10 +11,11 @@ import GameOver from "./components/GameOver";
 import HowToPlay from "./components/HowToPlay.jsx";
 
 function App() {
-    const [currentLevel, setCurrentLevel] = useState(
-        () => localStorage.getItem("level") || "1"
-    );
-
+    const [currentLevel, setCurrentLevel] = useState(() => {
+        const storedLevel = localStorage.getItem("level");
+        return storedLevel === null ? "1" : storedLevel;
+    });
+    const lengthOfData = Object.keys(Data).length;
     const level = Data["level" + currentLevel];
     const [fillWidth, setFillWidth] = useState(25);
     const [isTimeout, setIsTimeout] = useState(false);
@@ -31,10 +32,6 @@ function App() {
         "indigo",
         "violet"
     ];
-
-    function setCountdownFunc() {
-        // body...
-    }
 
     useEffect(() => {
         setCountdown(level.time);
@@ -109,6 +106,10 @@ function App() {
     }
 
     function nextLevel() {
+        if (parseInt(localStorage.getItem("level")) === lengthOfData) {
+            alert("You've beaten the game, congrats!!!");
+            return;
+        }
         const newNextLevel = JSON.parse(localStorage.getItem("level")) + 1;
         localStorage.setItem("level", JSON.stringify(newNextLevel));
         setCurrentLevel(localStorage.getItem("level"));
@@ -146,7 +147,7 @@ function App() {
         <div className="h-[100dvh] flex flex-col bg-neutral-50">
             <Header
                 setIsTimeout={setIsTimeout}
-                level={localStorage.getItem("level")}
+                level={currentLevel}
                 countdown={countdown}
                 setCountdown={setCountdown}
                 isFillEmpty={isFillEmpty}
@@ -167,12 +168,14 @@ function App() {
                 isFilled={isFilled}
                 previousLevel={previousLevel}
                 restart={restart}
+                currentLevel={currentLevel}
             />
             <Win
                 nextLevel={nextLevel}
                 isFilled={isFilled}
                 previousLevel={previousLevel}
                 restart={restart}
+                currentLevel={currentLevel}
             />
             <HowToPlay
                 isDialogOpened={isDialogOpened}
