@@ -23,7 +23,7 @@ const CountdownTimer = props => {
             }
         }, 1000);
         return () => clearInterval(timer);
-    }, [isFilled, isFillEmpty, setCountdown, isDialogOpened]);
+    }, [isFilled, isFillEmpty, countdown , isDialogOpened]);
 
     useEffect(() => {
         if (countdown === 0) {

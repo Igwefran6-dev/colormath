@@ -52,8 +52,6 @@ function App() {
             setIsFillEmpty(true);
         }
     }, [fillWidth]);
-    // console.log("xx: " + isFillEmpty);
-    //     console.log("yy: " + isFilled);
 
     function shuffleArray(arr) {
         const shuffledArray = [...arr];
@@ -94,7 +92,7 @@ function App() {
     const [newCalcsArr, setNewCalcArr] = useState(() => shuffleArray(calcsArr));
     const [newColors, setNewColors] = useState(() => shuffleArray(colors));
 
-    function reset() {
+    function resetBoard() {
         const shuffledColor = shuffleArray(colors);
         setNewColors(shuffledColor);
         const shuffleCalArr = shuffleArray(calcsArr);
@@ -102,7 +100,7 @@ function App() {
     }
 
     function checkCalc(data) {
-        reset();
+        resetBoard();
         if (data) {
             setFillWidth(prevFillWidth => prevFillWidth + 15);
         } else {
@@ -119,7 +117,7 @@ function App() {
         setIsTimeout(false);
         setIsFillEmpty(false);
         setFillWidth(25);
-        reset();
+        resetBoard();
     }
 
     function previousLevel() {
@@ -131,7 +129,7 @@ function App() {
         setIsTimeout(false);
         setIsFillEmpty(false);
         setFillWidth(25);
-        reset();
+        resetBoard();
     }
 
     function restart() {
@@ -141,7 +139,7 @@ function App() {
         setIsFillEmpty(false);
         setFillWidth(25);
         setCountdown(level.time);
-        reset();
+        resetBoard();
     }
 
     return (
@@ -180,7 +178,7 @@ function App() {
                 isDialogOpened={isDialogOpened}
                 setIsDialogOpened={setIsDialogOpened}
             />
-            <Options setIsDialogOpened={setIsDialogOpened} restart={restart}/>
+            <Options setIsDialogOpened={setIsDialogOpened} restart={restart} />
             <Footer />
         </div>
     );
